@@ -1,0 +1,22 @@
+header{
+    background-color: var(--header-background);
+}
+.header__side-list{
+    position: absolute;
+    left: 5px;
+}
+.header{
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+}
+.header__title{
+    color: var(--text-color);
+}
+.header__new{
+    background-color: var(--header-background);
+    border: none;
+    height: 1.5rem;
+    width: 20rem;
+}

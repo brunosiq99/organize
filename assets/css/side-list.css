@@ -1,0 +1,12 @@
+.side-list{
+    background-color: var(--side-list-background);
+    display: flex;
+    height: 100%;
+    left: -300px;
+    position: absolute;
+    transition: all 0.5s;
+    width: 300px;
+}
+.side-list---showed{
+    left: 0;
+}

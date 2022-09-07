@@ -1,0 +1,16 @@
+:root{
+    /*colors*/
+    --text-color: #fdfdfd;
+    --header-background: rgba(0,0,0,0.85);
+    --search-button: #555;
+    --side-list-background: rgba(0,0,0,0.9);
+    --workspace-background: #222;
+}
+.container{
+    margin: 0 auto;
+    width: 90%;
+}
+main{
+    position: relative;
+    height: calc(100vh - 2.6rem);
+}
