@@ -15,8 +15,43 @@ header{
     color: var(--text-color);
 }
 .header__new{
-    background-color: var(--header-background);
+    height: 1.6rem;
+    position: relative;
+    width: 15rem;
+}
+.header__new___button{
+    background-color: var(--new-button);
+    border: 2pt solid #111;
+    box-shadow: 1pt 1pt 1pt #000;
+    color: var(--text-color);
+    cursor: pointer;
+    position: absolute;
+    transition: all 0.25s;
+    width: 100%;
+    z-index: 1;
+}
+.header__new___button:active{
+    box-shadow: none;
+}
+.header__new-task{
+    background-color: var(--new-button);
+    display: flex;
+    height: calc(100% - 6pt);
+    margin: 1.5pt;
+    padding-left: 0.25rem;
+    position: absolute;
+    top: 0;
+    width: calc(100% - 6pt);
+    z-index: 0;
+}
+.header__new-task___input{
+    background-color: var(--new-button);
     border: none;
-    height: 1.5rem;
-    width: 20rem;
+    color: var(--text-color);
+}
+.header__new-task___button{
+    background-color: var(--new-button);
+    border: none;
+    cursor: pointer;
+    color: var(--text-color);
 }

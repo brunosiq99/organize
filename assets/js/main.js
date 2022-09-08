@@ -1,7 +1,7 @@
 //sideList
 function setSideListButton(){
     const sideListButton = document.querySelector('.header__side-list');
-    sideListButton.addEventListener('click',()=>controlSideList());
+    sideListButton.addEventListener('click', () => controlSideList());
 }
 function controlSideList(){
     const sideList = document.querySelector('.side-list');
@@ -14,10 +14,30 @@ function controlSideList(){
         workspace.classList.add('workspace---indented');
     }
 }
+// new Task
+function setNewTaskButton(){
+    const newTaskButton = document.querySelector('.header__new___button');
+    newTaskButton.addEventListener('click', () => controlNewTaskBar('open'));
+}
+function setCloseNewTask(){
+    const closeNewTaskButton = document.querySelector('#close-new-task');
+    closeNewTaskButton.addEventListener('click', () => controlNewTaskBar('close'));
+}
+function controlNewTaskBar(control){
+    const newTaskBar = document.querySelector('.header__new-task');
+    if(control === 'open'){ 
+        newTaskBar.style.zIndex = 20;
+    }
+    if(control === 'close'){
+        newTaskBar.style.zIndex = 0;
+    }    
+}
 
 
 // run functions
 
 setSideListButton();
+setNewTaskButton();
+setCloseNewTask();
 
 
