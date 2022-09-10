@@ -32,12 +32,41 @@ function controlNewTaskBar(control){
         newTaskBar.style.zIndex = 0;
     }    
 }
+// Add new Task
+let taskLists = '';
+function setLocalStorage(){
+    const localStorageTaskLists = JSON.parse(localStorage.getItem('taskLists'));
+    taskLists = localStorage.getItem('taskLists') !== null ? localStorageTaskLists : [];
+    // if localStorage.getItem('taskLists') !== null => let taskLists = localStorageTaskLists
+    // if localStorage.getItem('taskLists') === null => let taskLists = []   
+}
+function updateLocalStorage(){
+    localStorage.setItem('taskLists', JSON.stringify(taskLists))
+}
+
+function setAddNewTask(){
+    const newTaskForm = document.querySelector('[data-js="new-task__form"]');
+    newTaskForm.addEventListener('submit',(data) => {
+        data.preventDefault();
+        const taskListName = data.target.newTaskList.value;
+        const taskList = {
+            name: taskListName,
+            tasks: []
+        }
+        taskLists.push(taskList);
+        updateLocalStorage();
+    })
+}
 
 
 // run functions
-
+// sideList
 setSideListButton();
+// newTask
 setNewTaskButton();
 setCloseNewTask();
+setLocalStorage();
+setAddNewTask();
+
 
 
