@@ -13,6 +13,8 @@ header{
 }
 .header__title{
     color: var(--text-color);
+    font-family: var(--title-font);
+    font-size: 1.1rem;
 }
 .header__new{
     height: 1.6rem;
@@ -54,4 +56,10 @@ header{
     border: none;
     cursor: pointer;
     color: var(--text-color);
+}
+.header__theme,.header__side-list{
+    background-color: transparent;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
 }

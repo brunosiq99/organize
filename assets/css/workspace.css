@@ -1,9 +1,10 @@
 .workspace{
     background-color: var(--workspace-background);
     color: var(--text-color);
+    height: 100%;
+    overflow: hidden;
     position: fixed;
     right: 0;
-    height: 100%;
     transition: all 0.5s;
     width: 100%;
 }
@@ -11,5 +12,29 @@
     width: calc(100% - 300px);
 }
 .workspace__top-bar{
-    
+    background-color: var(--workspace-topbar-background);
+    display: flex;
+    flex-flow: nowrap;
+    justify-content: space-around;
+    padding: 0.5rem 0;
+}
+.workspace__top-bar___title{
+    font-family: var(--title-font);
+}
+.workspace__top-bar___form{
+    background-color: var(--new-button);
+    display: flex;
+    flex-wrap: nowrap;
+    height: calc(100% - 6pt);
+}
+.workspace__top-bar___form--input{
+    background-color: var(--new-button);
+    border: none;
+    color: var(--text-color);
+}
+.workspace__top-bar___form--button{
+    background-color: var(--new-button);
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
 }

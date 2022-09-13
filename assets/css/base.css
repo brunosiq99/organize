@@ -4,7 +4,12 @@
     --header-background: rgba(0,0,0,0.85);
     --new-button: #222;
     --side-list-background: rgba(0,0,0,0.9);
+    --workspace-topbar-background: rgba(0,0,0,0.2);
     --workspace-background: #222;
+
+    /*Fonts*/
+    --title-font: 'Roboto Mono', monospace;
+    --text-font: 'Montserrat', sans-serif;
 }
 .container{
     margin: 0 auto;
