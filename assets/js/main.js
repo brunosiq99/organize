@@ -139,7 +139,8 @@ function createsTopBar(workSpace){
     topBarInput.name = 'newTaskInput';
     topBarInput.placeholder = "Crie uma nova tarefa";
     const topBarButton = document.createElement('button');
-    topBarButton.innerText = 'OK'
+    topBarButton.className = 'workspace__top-bar___form--button';
+    topBarButton.innerText = 'OK';
     topBarButton.type = 'submit';
 
     workSpace.appendChild(topBar);
