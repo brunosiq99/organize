@@ -1,6 +1,6 @@
 .side-list{
     background-color: var(--side-list-background);
-    display: flex;
+    color: var(--text-color);
     height: 100%;
     left: -300px;
     position: absolute;
@@ -9,4 +9,8 @@
 }
 .side-list---showed{
     left: 0;
+}
+.side-list__title{
+    font-size: 1.2rem;
+    text-align: center;
 }
