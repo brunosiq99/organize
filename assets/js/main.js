@@ -34,6 +34,8 @@ function setAddNewTaskList(){
     newTaskForm.addEventListener('submit',(data) => {
         data.preventDefault();
         addTaskList(data);
+        
+        controlNewTaskListBar('close')
         updateLocalStorage();
     })
 }
@@ -47,6 +49,7 @@ function addTaskList(data){
         tasks: []
     }
     taskLists.push(taskList);
+    addSideListItem(taskList);
 }
 
 // create Task
@@ -78,29 +81,31 @@ function controlSideList(){
 }
 // side List taskLists
 function addListedItems (){
-    const sideListUl = document.querySelector('.side-list__ul');
     taskLists.forEach((taskList) => {
-        const sideListLi = document.createElement('li');
-        sideListLi.className = 'side-list__li';
-        sideListLi.id = taskList.id;
-        
-        const sideListLiPriority = document.createElement('button');
-        const sideListLiTitle = document.createElement('button');
-        sideListLiPriority.className = 'side-list__li___priority';
-        sideListLiTitle.className = 'side-list__li___title';
-        sideListLiTitle.innerText = taskList.name;
-        
-
-        sideListLiTitle.addEventListener('click',(event)=>{
-            const buttonParentNode = event.target.parentNode;
-            const taskListId = buttonParentNode.id;
-            openTaskList(taskListId);
-        })
-        
-        sideListUl.appendChild(sideListLi);
-        sideListLi.appendChild(sideListLiPriority);
-        sideListLi.appendChild(sideListLiTitle);
+        addSideListItem(taskList);
     })    
+}
+function addSideListItem(taskList){
+    const sideListUl = document.querySelector('.side-list__ul');
+    const sideListLi = document.createElement('li');
+    sideListLi.className = 'side-list__li';
+    sideListLi.id = taskList.id;
+        
+    const sideListLiPriority = document.createElement('button');
+    const sideListLiTitle = document.createElement('button');
+    sideListLiPriority.className = 'side-list__li___priority';
+    sideListLiTitle.className = 'side-list__li___title';
+    sideListLiTitle.innerText = taskList.name;
+        
+    sideListLiTitle.addEventListener('click',(event)=>{
+        const buttonParentNode = event.target.parentNode;
+        const taskListId = buttonParentNode.id;
+        openTaskList(taskListId);
+    })
+        
+    sideListUl.appendChild(sideListLi);
+    sideListLi.appendChild(sideListLiPriority);
+    sideListLi.appendChild(sideListLiTitle);
 }
 
 // workspace 
@@ -134,6 +139,7 @@ function createsTopBar(workSpace){
     topBarInput.name = 'newTaskInput';
     topBarInput.placeholder = "Crie uma nova tarefa";
     const topBarButton = document.createElement('button');
+    topBarButton.innerText = 'OK'
     topBarButton.type = 'submit';
 
     workSpace.appendChild(topBar);
