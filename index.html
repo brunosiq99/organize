@@ -29,9 +29,9 @@
             <h1 class="header__title">Organize</h1>
             <div class="header__new">
                 <button class="header__new___button">Nova Lista de Tarefas</button>
-                <form class="header__new-task">
-                    <input required class="header__new-task___input" type="text" placeholder="Nome da Lista de Tarefas">
-                    <button class="header__new-task___button"><i class="fa-solid fa-check"></i></button>
+                <form data-js="new-task__form" class="header__new-task">
+                    <input required name="newTaskList" class="header__new-task___input" type="text" placeholder="Nome da Lista de Tarefas">
+                    <button class="header__new-task___button" data-js="submitNewTask"><i class="fa-solid fa-check"></i></button>
                     <button type="button" class="header__new-task___button" id="close-new-task"><i class="fa-solid fa-x"></i></button>
                 </form>
             </div> 
@@ -44,7 +44,6 @@
             <ul class="side-list__ul"></ul>
         </section>
         <section class="workspace">
-            
         </section>
     </main>
 </body>
