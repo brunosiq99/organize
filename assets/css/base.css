@@ -1,11 +1,17 @@
 :root{
     /*colors*/
     --text-color: #fdfdfd;
+    --side-list-li-color: #ccc;
     --header-background: rgba(0,0,0,0.85);
     --new-button: #222;
     --side-list-background: rgba(0,0,0,0.9);
     --workspace-topbar-background: rgba(0,0,0,0.2);
     --workspace-background: #222;
+    --priority0: #6f6;
+    --priority1: #6af;
+    --priority2: #71f;
+    --priority3: #a2d;
+    --priority4: #f22;
 
     /*Fonts*/
     --title-font: 'Roboto Mono', monospace;

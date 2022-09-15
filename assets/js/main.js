@@ -1,3 +1,8 @@
+//general Functions
+function removeFromArrayByValue(value,array){
+    const indexOfValue = array.indexOf(value);
+    array.splice(indexOfValue,1);
+}
 // new Tasklist
 
 function setNewTaskListButton(){
@@ -17,7 +22,7 @@ function controlNewTaskListBar(control){
         newTaskListBar.style.zIndex = 0;
     }    
 }
-// Add new Task
+// Add new TaskList
 let taskLists = '';
 function setLocalStorage(){
     const localStorageTaskLists = JSON.parse(localStorage.getItem('taskLists'));
@@ -41,7 +46,7 @@ function setAddNewTaskList(){
 }
 function addTaskList(data){
     const taskListName = data.target.newTaskList.value;
-    const taskListId = `tasklist${taskLists.length}`
+    const taskListId = setIdTaskList();
     const taskList = {
         priority: 0,
         id: taskListId,
@@ -51,6 +56,28 @@ function addTaskList(data){
     taskLists.push(taskList);
     addSideListItem(taskList);
 }
+function setIdTaskList(){
+    return Math.floor(Date.now() * Math.random()).toString(36);
+}
+// Control taskLists
+function increasesPriority(taskListId){
+    const tasklistIncreased = findTaskListById(taskListId)
+    tasklistIncreased.priority++;
+    if (tasklistIncreased.priority > 4){
+        tasklistIncreased.priority = 0;
+    }
+    updateLocalStorage();
+}
+function findTaskListById(taskListId){
+    return taskLists.find(taskList => taskList.id === taskListId );
+}
+function deleteTaskList(taskListId){
+    const tasklistDeleted = findTaskListById(taskListId);
+    console.log(tasklistDeleted)
+    removeFromArrayByValue(tasklistDeleted,taskLists);
+}
+
+
 
 // create Task
 function createNewTask(data){
@@ -90,28 +117,73 @@ function addSideListItem(taskList){
     const sideListLi = document.createElement('li');
     sideListLi.className = 'side-list__li';
     sideListLi.id = taskList.id;
+
         
     const sideListLiPriority = document.createElement('button');
     const sideListLiTitle = document.createElement('button');
+    const sideListLiExclude = document.createElement('button')
     sideListLiPriority.className = 'side-list__li___priority';
     sideListLiTitle.className = 'side-list__li___title';
+    sideListLiExclude.className = 'side-list__li___exclude';
     sideListLiTitle.innerText = taskList.name;
-        
+    sideListLiExclude.innerHTML = '<i class="fa-solid fa-x">';
+    
+    sideListLiPriority.addEventListener('click',(event)=>{
+        const taskListId = getButtonParentNodeId(event.target);
+        increasesPriority(taskListId);
+        sideListPriorityBack(event.target,taskListId);
+    });
     sideListLiTitle.addEventListener('click',(event)=>{
-        const buttonParentNode = event.target.parentNode;
-        const taskListId = buttonParentNode.id;
+        const taskListId = getButtonParentNodeId(event.target);
+        updateActiveButton(event.target);
         openTaskList(taskListId);
-    })
-        
+    });
+    sideListLiExclude.addEventListener('click',(event)=>{
+        const confirmed = confirm('Deseja escluir esta lista?')
+        if(confirmed == true ){
+            const deleteButton = event.target.parentNode;
+            const taskListId = getButtonParentNodeId(deleteButton);
+            deleteTaskList(taskListId);
+            removeSideListItem(taskListId);
+            updateLocalStorage()
+        }
+    });
+    
+    
+
     sideListUl.appendChild(sideListLi);
     sideListLi.appendChild(sideListLiPriority);
     sideListLi.appendChild(sideListLiTitle);
+    sideListLi.appendChild(sideListLiExclude)
+
+    sideListPriorityBack(sideListLiPriority,sideListLi.id);
+}
+function removeSideListItem(taskListId){
+    const taskListNode = document.getElementById(taskListId);
+    const taskListUl = taskListNode.parentNode;
+    taskListUl.removeChild(taskListNode); 
+} 
+
+function sideListPriorityBack(priorityButton,taskListId){  
+    const taskListPriority = (findTaskListById(taskListId)).priority;
+    priorityButton.style.backgroundColor = `var(--priority${taskListPriority})`;
+}
+function updateActiveButton(button){
+    const currentActiveButton = document.querySelector('.side-list__li___title--active');
+    if(currentActiveButton !== null){
+        currentActiveButton.classList.remove('side-list__li___title--active')
+    }
+    button.classList.add('side-list__li___title--active');
+}
+function getButtonParentNodeId(button){
+    const buttonParentNode = button.parentNode;
+    return buttonParentNode.id;
 }
 
 // workspace 
 let openedTaskListObject = '';
 function openTaskList(taskListId){
-    openedTaskListObject = taskLists.find(taskList => taskList.id == taskListId);   
+    openedTaskListObject = findTaskListById(taskListId)  
     createsWorkSpace();      
 }
 function createsWorkSpace() {
