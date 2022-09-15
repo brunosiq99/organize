@@ -38,3 +38,11 @@
     color: var(--text-color);
     cursor: pointer;
 }
+.workspace__task___delete{
+    display: none;
+    position: fixed;
+    right: 1.5rem;
+}
+.workspace__task:hover > .workspace__task___delete{
+    display: block;
+}

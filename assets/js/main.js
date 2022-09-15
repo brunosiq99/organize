@@ -3,6 +3,14 @@ function removeFromArrayByValue(value,array){
     const indexOfValue = array.indexOf(value);
     array.splice(indexOfValue,1);
 }
+function newId(){
+    return Math.floor(Date.now() * Math.random()).toString(36);
+}
+function removeNodeById(taskListId){
+    const taskListNode = document.getElementById(taskListId);
+    const taskListUl = taskListNode.parentNode;
+    taskListUl.removeChild(taskListNode); 
+} 
 // new Tasklist
 
 function setNewTaskListButton(){
@@ -46,7 +54,7 @@ function setAddNewTaskList(){
 }
 function addTaskList(data){
     const taskListName = data.target.newTaskList.value;
-    const taskListId = setIdTaskList();
+    const taskListId = newId();
     const taskList = {
         priority: 0,
         id: taskListId,
@@ -56,9 +64,7 @@ function addTaskList(data){
     taskLists.push(taskList);
     addSideListItem(taskList);
 }
-function setIdTaskList(){
-    return Math.floor(Date.now() * Math.random()).toString(36);
-}
+
 // Control taskLists
 function increasesPriority(taskListId){
     const tasklistIncreased = findTaskListById(taskListId)
@@ -83,9 +89,21 @@ function deleteTaskList(taskListId){
 function createNewTask(data){
     const workSpaceContent = document.querySelector('.workspace__content');
     const taskList = openedTaskListObject.tasks;
-    const task = data.target.newTaskInput.value;
+    const taskName = data.target.newTaskInput.value;
+    const taskId = 't' + newId();
+    const task = {
+        name: taskName,
+        id: taskId,
+        finished: false
+    }
     taskList.push(task);
     createsWorkSpaceLi(workSpaceContent,task);
+    updateLocalStorage();
+}
+function removeTask(task){
+    const tasksArray = openedTaskListObject.tasks
+    removeFromArrayByValue(task,tasksArray)
+    removeNodeById(task.id)
     updateLocalStorage();
 }
 
@@ -144,13 +162,11 @@ function addSideListItem(taskList){
             const deleteButton = event.target.parentNode;
             const taskListId = getButtonParentNodeId(deleteButton);
             deleteTaskList(taskListId);
-            removeSideListItem(taskListId);
+            removeNodeById(taskListId);
             updateLocalStorage()
         }
     });
     
-    
-
     sideListUl.appendChild(sideListLi);
     sideListLi.appendChild(sideListLiPriority);
     sideListLi.appendChild(sideListLiTitle);
@@ -158,12 +174,6 @@ function addSideListItem(taskList){
 
     sideListPriorityBack(sideListLiPriority,sideListLi.id);
 }
-function removeSideListItem(taskListId){
-    const taskListNode = document.getElementById(taskListId);
-    const taskListUl = taskListNode.parentNode;
-    taskListUl.removeChild(taskListNode); 
-} 
-
 function sideListPriorityBack(priorityButton,taskListId){  
     const taskListPriority = (findTaskListById(taskListId)).priority;
     priorityButton.style.backgroundColor = `var(--priority${taskListPriority})`;
@@ -232,13 +242,57 @@ function createsWorkSpaceContent(workSpace){
     openedTasks.forEach(task => createsWorkSpaceLi(workSpaceContent,task))    
 }
 function createsWorkSpaceLi(workSpaceContent,task){
-    
-    const workSpaceLi = document.createElement('li');
-    workSpaceLi.className = 'workspace__contente___item';
-    workSpaceLi.innerText = task;
-    workSpaceContent.appendChild(workSpaceLi);
-}
+    const taskLi = document.createElement('li');
+    taskLi.className = 'workspace__task';
+    taskLi.id = task.id; 
 
+    workSpaceContent.appendChild(taskLi);
+    
+    const taskTitle = document.createElement('p');
+    taskTitle.className = 'workspace__task___p';
+    taskTitle.innerText = task.name;
+    
+    taskLi.appendChild(taskTitle);
+    setTaskLiDeleteButton(taskLi, task);
+    setWorkSpaceCheckBoxes(taskLi,task);
+    
+}
+function setWorkSpaceCheckBoxes(taskLi,task){
+    const taskFinished = document.createElement('div');
+    taskFinished.className = 'workspace__task___finished';
+    const taskFinishedCheckBox = document.createElement('input');
+    taskFinishedCheckBox.className = 'workspace__task___finished--input';
+    taskFinishedCheckBox.type = 'checkbox';
+    taskFinishedCheckBox.id = 'check' + taskLi.id;
+    taskFinishedCheckBox.checked = task.finished;
+    const taskFinishedLabel = document.createElement('label'); 
+    taskFinishedLabel.className = 'workspace__task___finished--label';
+    taskFinishedLabel.htmlFor = taskFinishedCheckBox.id;
+    taskFinishedLabel.innerHTML = '<i class="fa-solid fa-check"></i>';
+
+    taskFinishedCheckBox.addEventListener('change',()=>{
+        if(taskFinishedCheckBox.checked){
+            task.finished = true;
+        }else{
+            task.finished = false;
+        }
+        updateLocalStorage();
+    })
+
+    taskLi.appendChild(taskFinished);
+    taskFinished.appendChild(taskFinishedCheckBox);
+    taskFinished.appendChild(taskFinishedLabel);
+}
+function setTaskLiDeleteButton(taskLi,task){
+    const taskLiDeleteBtn = document.createElement('button');
+    taskLiDeleteBtn.innerHTML = '<i class="fa-solid fa-x">';
+    taskLiDeleteBtn.className = 'workspace__task___delete side-list__li___exclude';
+    taskLiDeleteBtn.addEventListener('click', ()=>{
+        removeTask(task)
+
+    })
+    taskLi.appendChild(taskLiDeleteBtn)
+}
 
 // run functions
 

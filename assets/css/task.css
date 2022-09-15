@@ -1,0 +1,39 @@
+.workspace__task{
+    align-items: center;
+    display: flex;
+    border-bottom: 0.01pt solid var(--side-list-li-color);
+    justify-content: space-between;    
+}
+.workspace__task___p{
+    font-size: 0.8rem;
+    margin-left: 1rem;
+}
+.workspace__task___finished{
+    height: 1.5rem;
+    width: 1.5rem;
+    position: relative;
+}
+.workspace__task___finished--input{
+    display: none;
+}
+.workspace__task___finished--input + label {
+    align-items: center;
+    position: absolute;
+    background: #FFF;
+    border: none;
+    color: #8c8c8c;
+    content: '\2713';
+    cursor: pointer;
+    display: flex;
+    font-size: 1.25rem;
+    height: 1.5rem;
+    justify-content: center;
+    margin-right: 16px;
+    transition: .2s;
+    width:  1.5rem;
+}
+.workspace__task___finished--input:checked + label{
+    background: #6f6;
+    color: #fdfdfd;
+}
+

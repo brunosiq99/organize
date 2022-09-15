@@ -8,16 +8,19 @@ header{
 .header{
     align-items: center;
     display: flex;
-    justify-content: space-between;
     padding: 0.5rem 0;
+    justify-content: space-between;
 }
 .header__title{
     color: var(--text-color);
+    display: none;
     font-family: var(--title-font);
     font-size: 1.1rem;
 }
 .header__new{
     height: 1.6rem;
+    flex-grow: 1;
+    margin: 0 2rem;
     position: relative;
     width: 15rem;
 }
@@ -50,16 +53,27 @@ header{
     background-color: var(--new-button);
     border: none;
     color: var(--text-color);
+    flex-grow: 1;
 }
 .header__new-task___button{
     background-color: var(--new-button);
     border: none;
     cursor: pointer;
     color: var(--text-color);
+
 }
 .header__theme,.header__side-list{
     background-color: transparent;
     border: none;
     color: var(--text-color);
     cursor: pointer;
+}
+
+@media screen and (min-width: 660px){
+    .header__title{
+        display: block;
+    }
+    .header__new{
+        flex-grow: 0;
+    }
 }
